@@ -1,0 +1,55 @@
+<h1>Velina Dimova-Mihaylov Project</h1>
+
+<kendo-label text="Show UserID">
+  <kendo-switch
+    [(ngModel)]="checked"
+    [style.marginLeft.px]="5"
+    [style.marginBottom.px]="5"
+    (valueChange)="onChange($event)"
+  ></kendo-switch>
+</kendo-label>
+
+<kendo-grid
+  [kendoGridBinding]="posts"
+  [pageable]="{
+    buttonCount: 5,
+    pageSizes: [5, 10, 20]
+  }"
+  [sortable]="{
+    allowUnsort: true,
+    mode: 'multiple'
+  }"
+  [filterable]="true"
+  [pageSize]="5"
+  [resizable]="true"
+  [kendoGridReactiveEditing]="createFormGroup"
+>
+  <kendo-grid-column field="userId" title="User ID" [hidden]="visible">
+  </kendo-grid-column>
+  <kendo-grid-column field="id" title="Post ID">
+    <ng-template kendoGridCellTemplate let-item let-rowIndex="rowIndex">
+      <span class="{{ item.id % 2 === 0 ? 'even' : 'odd' }}">
+        {{ item.id }}</span
+      >
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="title" title="Post Title"></kendo-grid-column>
+  <kendo-grid-column field="body" title="Post Body">
+    <ng-template kendoGridCellTemplate let-item let-rowIndex="rowIndex">
+      <span class="{{ rowIndex >= 0 ? 'postBody' : '' }}">
+        {{ item.body }}</span
+      >
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Actions">
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <button kendoGridEditCommand [primary]="true">Edit</button>
+      <button kendoGridSaveCommand [disabled]="formGroup.invalid">
+        {{ isNew ? "Add" : "Update" }}
+      </button>
+      <button kendoGridCancelCommand>
+        {{ isNew ? "Discard changes" : "Cancel" }}
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+</kendo-grid>

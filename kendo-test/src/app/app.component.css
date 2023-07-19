@@ -1,0 +1,13 @@
+.even {
+    color: rgb(41, 150, 117);
+    font-weight: 700;
+}
+
+.odd {
+    color: rgb(171, 18, 155);
+    font-weight: 700;
+}
+
+.postBody {
+    font-style: italic;
+}
